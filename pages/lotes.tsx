@@ -1,11 +1,11 @@
 const LotsPage = () => {
-    return (
-        <main className="flex flex-col items-center p-10 gap-5">
-        <section>
+  return (
+    <main>
+      <section>
         <h1>Lotes</h1>
-        </section>
-       </main>
-    );
+      </section>
+    </main>
+  );
 };
 
 export default LotsPage;

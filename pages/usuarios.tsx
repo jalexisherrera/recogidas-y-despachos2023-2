@@ -1,3 +1,4 @@
+import { UsersTableActions } from "@/components/usuarios/UsersTableActions";
 import { API_SERVICES, fetcher } from "@/service";
 import Image from "next/image";
 import useSWR from "swr";
@@ -21,6 +22,7 @@ const UsersPage = () => {
               <th>Imagen</th>
               <th>Nombre</th>
               <th>Correo electrónico</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -38,6 +40,9 @@ const UsersPage = () => {
                   </td>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
+                  <td>
+                    <UsersTableActions user={user}/>
+                  </td>
                 </tr>
               );
             })}
