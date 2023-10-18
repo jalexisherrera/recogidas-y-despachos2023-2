@@ -1,4 +1,3 @@
-
 const ShipmentsPage = () => {
   return (
     <main>

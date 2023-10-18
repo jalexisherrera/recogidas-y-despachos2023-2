@@ -1,9 +1,7 @@
 const LotsPage = () => {
   return (
     <main>
-      <section>
-        <h1>Lotes</h1>
-      </section>
+      <div>Pagina de lotes</div>
     </main>
   );
 };

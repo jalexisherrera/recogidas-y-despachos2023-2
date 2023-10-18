@@ -1,10 +1,7 @@
-
 const CollectionsPage = () => {
   return (
     <main>
-      <div>
-        <h1>Recogidas</h1>
-      </div>
+      <h1>Recogidas</h1>
     </main>
   );
 };
