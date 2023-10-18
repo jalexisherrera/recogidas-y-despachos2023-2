@@ -1,15 +1,17 @@
-import { Dialog } from "@/components/ui/Dialog";
-import { Dispatch, SetStateAction, useState } from "react";
-import axios from "axios";
-import { Spinner } from "@/components/ui/Spinner";
-import { toast } from "react-toastify";
-import { API_SERVICES } from "@/service";
-import { mutate } from "swr";
+import { Dialog } from '@/components/ui/Dialog';
+import { Dispatch, SetStateAction, useState } from 'react';
+import axios from 'axios';
+import { API_SERVICES } from '@/service';
+import { toast } from 'react-toastify';
+import { mutate } from 'swr';
+import { User } from '@/types';
+import { PrimaryActionButton } from '@/components/ui/Buttons/PrimaryActionButton';
+import { SecondaryActionButton } from '@/components/ui/Buttons';
 
 interface DeleteUserDialogProps {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  user: any;
+  user: User;
 }
 
 const DeleteUserDialog = ({ open, setOpen, user }: DeleteUserDialogProps) => {
@@ -23,10 +25,9 @@ const DeleteUserDialog = ({ open, setOpen, user }: DeleteUserDialogProps) => {
         url: `${API_SERVICES.users}/${user.id}`,
       });
       await mutate(API_SERVICES.users);
-      toast.success("Usuario eliminado correctamente");
+      toast.success('Usuario eliminado correctamente');
     } catch (error) {
-      console.log(error);
-      toast.error("Error eliminando el usuario");
+      toast.error('Error eliminando el usuario');
     }
     setLoading(false);
     setOpen(false);
@@ -34,36 +35,30 @@ const DeleteUserDialog = ({ open, setOpen, user }: DeleteUserDialogProps) => {
 
   return (
     <Dialog
-      title="Eliminar usuario"
+      title='Eliminar el usuario'
       open={open}
       onClose={() => {
         setOpen(false);
       }}
     >
-      <div className="flex flex-col items-center gap-4">
-        <div className="flex flex-col items-center">
-          <span>Esta Acción no se puede revertir.</span>
-          <span>¿Está seguro qde querer eliminar el usuario?</span>
+      <div className='flex flex-col items-center gap-4'>
+        <div className='flex flex-col items-center'>
+          <span>Esta acción no se puede revertir.</span>
+          <span>¿Está seguro de querer eliminar el usuario?</span>
         </div>
-        <div className="flex gap-3">
-          <button
-            disabled={loading}
-            type="button"
+        <div className='flex gap-3'>
+          <PrimaryActionButton
+            loading={loading}
             onClick={deleteUser}
-            className="primary"
-          >
-            {loading ? <Spinner /> : <span>Continuar</span>}
-          </button>
-          <button
-            disabled={loading}
-            type="button"
-            onClick={() => {
-              setOpen(false);
-            }}
-            className="secundary"
-          >
-            Cancelar
-          </button>
+            text='Confirmar'
+            type='button'
+          />
+          <SecondaryActionButton
+            text='Cancelar'
+            type='button'
+            loading={loading}
+            onClick={() => setOpen(false)}
+          />
         </div>
       </div>
     </Dialog>

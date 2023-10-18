@@ -1,12 +1,10 @@
 
-const Shipments = () => {
+const ShipmentsPage = () => {
   return (
     <main>
-      <div>
-        <h1>Lotes</h1>
-      </div>
+      <h1>Shipments Page</h1>
     </main>
   );
 };
 
-export default Shipments;
+export default ShipmentsPage;
