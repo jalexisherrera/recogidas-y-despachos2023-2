@@ -1,17 +1,17 @@
 import { prisma } from '@/service/prisma';
-import { Role } from '@prisma/client';
+import { Collection } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-
 interface Response {
-  roles?: Role[];
+  collections?: Collection[];
   message?: string;
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<Response>) => {
   if (req.method === 'GET') {
-    const roles = await prisma.role.findMany();
-    return res.status(200).json({ roles });
+    const collections = await prisma.collection.findMany();
+
+    return res.status(200).json({ collections });
   }
 
   return res.status(405).json({ message: 'Method not allowed' });

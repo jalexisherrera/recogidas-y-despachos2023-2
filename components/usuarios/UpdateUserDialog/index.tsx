@@ -5,7 +5,7 @@ import {
 import { Dialog } from '@/components/ui/Dialog';
 import { useGetRoles } from '@/hooks/useGetRoles';
 import { API_SERVICES } from '@/service';
-import { User } from '@/types';
+import { User } from '@prisma/client';
 import { Dispatch, SetStateAction, useState, SyntheticEvent } from 'react';
 import { toast } from 'react-toastify';
 import { mutate } from 'swr';
@@ -35,13 +35,9 @@ const UpdateUserDialog = ({ open, setOpen, user }: UpdateUserDialogProps) => {
       await axios.request({
         method: 'PUT',
         url: `${API_SERVICES.users}/${user?.id ?? ''}`,
-        data: { data: formData.name, column: 'name' },
+        data: { name: formData.name, roleId: formData.roleId },
       });
-      await axios.request({
-        method: 'PUT',
-        url: `${API_SERVICES.users}/${user?.id ?? ''}`,
-        data: { data: formData.roleId, column: 'roleId' },
-      });
+
       // actualizacion de la tabla de usuarios
       await mutate(API_SERVICES.users);
       toast.success('Usuario actualizado correctamente');
@@ -63,7 +59,7 @@ const UpdateUserDialog = ({ open, setOpen, user }: UpdateUserDialogProps) => {
         <label htmlFor='user-name'>
           <span>Nombre</span>
           <input
-            value={formData.name}
+            value={formData?.name ?? ''}
             onChange={(e) =>
               setFormData({
                 ...formData,
@@ -79,7 +75,7 @@ const UpdateUserDialog = ({ open, setOpen, user }: UpdateUserDialogProps) => {
           <span>Rol</span>
           <select
             required
-            value={formData.roleId}
+            value={formData?.roleId ?? ''}
             onChange={(e) =>
               setFormData({
                 ...formData,
